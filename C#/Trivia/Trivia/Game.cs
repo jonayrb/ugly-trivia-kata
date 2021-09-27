@@ -56,34 +56,42 @@ namespace Trivia {
             Console.WriteLine("They have rolled a " + roll);
 
             if (_inPenaltyBox[_currentPlayer]) {
-                if (roll % 2 != 0) {
-                    _isGettingOutOfPenaltyBox = true;
-
-                    Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
-                    _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                    if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
-
-                    Console.WriteLine(_players[_currentPlayer]
-                            + "'s new location is "
-                            + _places[_currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
-                    AskQuestion();
-                }
-                else {
-                    Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
-                    _isGettingOutOfPenaltyBox = false;
-                }
+                RollInPenaltyBox(roll);
             }
             else {
+                NotRollInPenaltyBox(roll);
+            }
+        }
+
+        private void RollInPenaltyBox(int roll) {
+            if (roll % 2 != 0) {
+                _isGettingOutOfPenaltyBox = true;
+
+                Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
                 _places[_currentPlayer] = _places[_currentPlayer] + roll;
                 if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
 
                 Console.WriteLine(_players[_currentPlayer]
-                        + "'s new location is "
-                        + _places[_currentPlayer]);
+                                  + "'s new location is "
+                                  + _places[_currentPlayer]);
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
+            else {
+                Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
+                _isGettingOutOfPenaltyBox = false;
+            }
+        }
+
+        private void NotRollInPenaltyBox(int roll) {
+            _places[_currentPlayer] = _places[_currentPlayer] + roll;
+            if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+
+            Console.WriteLine(_players[_currentPlayer]
+                              + "'s new location is "
+                              + _places[_currentPlayer]);
+            Console.WriteLine("The category is " + CurrentCategory());
+            AskQuestion();
         }
 
         private void AskQuestion() {
