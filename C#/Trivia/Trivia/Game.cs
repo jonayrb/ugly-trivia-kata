@@ -21,11 +21,15 @@ namespace Trivia {
 
         public Game() {
             for (var i = 0; i < 50; i++) {
-                _popQuestions.AddLast("Pop Question " + i);
-                _scienceQuestions.AddLast(("Science Question " + i));
-                _sportsQuestions.AddLast(("Sports Question " + i));
-                _rockQuestions.AddLast(CreateRockQuestion(i));
+                GenerateInitialData(i);
             }
+        }
+
+        private void GenerateInitialData(int i) {
+            _popQuestions.AddLast("Pop Question " + i);
+            _scienceQuestions.AddLast(("Science Question " + i));
+            _sportsQuestions.AddLast(("Sports Question " + i));
+            _rockQuestions.AddLast(CreateRockQuestion(i));
         }
 
         public string CreateRockQuestion(int index) {
@@ -84,8 +88,7 @@ namespace Trivia {
 
         private void AskQuestion() {
             var currentCategory = CurrentCategory();
-            switch (currentCategory)
-            {
+            switch (currentCategory) {
                 case "Pop":
                     Console.WriteLine(_popQuestions.First());
                     _popQuestions.RemoveFirst();
@@ -106,8 +109,7 @@ namespace Trivia {
         }
 
         private string CurrentCategory() {
-            switch (_places[_currentPlayer])
-            {
+            switch (_places[_currentPlayer]) {
                 case 0:
                 case 4:
                 case 8:
