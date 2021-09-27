@@ -122,16 +122,14 @@ namespace Trivia {
         }
 
         public bool WasCorrectlyAnswered() {
-            if (_inPenaltyBox[_currentPlayer]) {
-                if (_isGettingOutOfPenaltyBox) {
-                    return GetWinnerOutOfPenaltyBox();
-                }
-
-                _currentPlayer++;
-                if (_currentPlayer == _players.Count) _currentPlayer = 0;
-                return true;
+            if (!_inPenaltyBox[_currentPlayer]) return AnswerIsCorrect();
+            if (_isGettingOutOfPenaltyBox) {
+                return GetWinnerOutOfPenaltyBox();
             }
-            return AnswerIsCorrect();
+
+            _currentPlayer++;
+            if (_currentPlayer == _players.Count) _currentPlayer = 0;
+            return true;
         }
 
         private bool AnswerIsCorrect() {
